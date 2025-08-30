@@ -1,6 +1,6 @@
 import MemoryCard from "./card";
 import { data } from "../utils/data";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Board() {
   const [cards, setCards] = useState(data);
@@ -22,12 +22,28 @@ export default function Board() {
     setCards(cardsCopy);
   }
 
-    'https://api.giphy.com/v1/gifs/translate?api_key=nG3o74a4rIU0rqzuRFT7FClR9T1kSQj2&s=cats'
+  useEffect(() => {
+    for (let i = 0; i < cards.length; i++) {
+      fetch(`https://thronesapi.com/api/v2/Characters/${cards[i].id}`)
+        .then((resp) => resp.json())
+        .then((character) => {
+          setCards(prevCards => prevCards.map((card,index)=>{
+            if(index === i){
+              return {...card,url:character.imageUrl,name:character.fullName}
+            }else{
+              return card;
+            }
+          }
+          )) 
+        });
+    }
+  },[cards.length]);
 
   function handleCardClick(e) {
     const cardName = e.target.id ? e.target.id : e.target.parentElement.id;
     const cardsCopy = [...cards];
-    const indexOfCard = cardsCopy.findIndex((card) => card.name == cardName);
+    console.log(cardsCopy);
+    const indexOfCard = cardsCopy.findIndex((card) => card.id == cardName);
     if (cardsCopy[indexOfCard].clicked) {
       for (let cardIndex = 0; cardIndex < cardsCopy.length; cardIndex++) {
         cardsCopy[cardIndex] = { ...cardsCopy[cardIndex], clicked: false };
@@ -44,8 +60,8 @@ export default function Board() {
       <p>Best is {bestScore}</p>
       {cards.map((card) => (
         <MemoryCard
-          key={card.name}
-          name={card.name}
+          key={card.id}
+          name={card.id}
           url={card.url}
           onClick={handleCardClick}
         ></MemoryCard>
