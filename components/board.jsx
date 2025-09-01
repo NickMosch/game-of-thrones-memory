@@ -1,5 +1,6 @@
 import MemoryCard from "./card";
-import { data } from "../utils/data";
+import { data, ids } from "../utils/data";
+import { shuffleCards } from "../utils/shuffle";
 import { useState, useEffect } from "react";
 
 export default function Board() {
@@ -9,41 +10,40 @@ export default function Board() {
   const score = cards.filter((card) => card.clicked).length;
   if (score > bestScore) {
     setBestScore(score);
-  }
-
-  function shuffleCards(cardsCopy) {
-    for (let cardIndex = cards.length - 1; cardIndex > 0; cardIndex--) {
-      const cardToReplace = Math.floor(Math.random() * (cardIndex + 1));
-      [cardsCopy[cardToReplace], cardsCopy[cardIndex]] = [
-        cardsCopy[cardIndex],
-        cardsCopy[cardToReplace],
-      ];
+  } 
+  
+  useEffect(() => {
+    const promises = [];
+    for (let i = 0; i < ids.length; i++) {
+      promises.push(
+        fetch(`https://thronesapi.com/api/v2/Characters/${ids[i]}`).then(
+          (resp) => resp.json()
+        )
+      );
     }
-    setCards(cardsCopy);
-  }
+    Promise.all(promises).then((characters) => {
+      setCards((prevCards) =>{
+        console.log(prevCards);
+        return prevCards.map((card) => {
+          let char = characters.find(character => character.id===card.id);
+          return {
+            ...card,
+            url: char.imageUrl,
+            name: char.fullName,
+          };
+        })}
+      );
+    });
+  }, []);
 
   useEffect(() => {
-    for (let i = 0; i < cards.length; i++) {
-      fetch(`https://thronesapi.com/api/v2/Characters/${cards[i].id}`)
-        .then((resp) => resp.json())
-        .then((character) => {
-          setCards(prevCards => prevCards.map((card,index)=>{
-            if(index === i){
-              return {...card,url:character.imageUrl,name:character.fullName}
-            }else{
-              return card;
-            }
-          }
-          )) 
-        });
-    }
-  },[cards.length]);
+    setCards((prevCards) => shuffleCards(prevCards));
+  }, []);
 
   function handleCardClick(e) {
     const cardName = e.target.id ? e.target.id : e.target.parentElement.id;
     const cardsCopy = [...cards];
-    console.log(cardsCopy);
-    const indexOfCard = cardsCopy.findIndex((card) => card.id == cardName);
+    const indexOfCard = cardsCopy.findIndex((card) => card.name == cardName);
     if (cardsCopy[indexOfCard].clicked) {
       for (let cardIndex = 0; cardIndex < cardsCopy.length; cardIndex++) {
         cardsCopy[cardIndex] = { ...cardsCopy[cardIndex], clicked: false };
@@ -51,7 +51,7 @@ export default function Board() {
     } else {
       cardsCopy[indexOfCard] = { ...cardsCopy[indexOfCard], clicked: true };
     }
-    shuffleCards(cardsCopy);
+    setCards(shuffleCards(cardsCopy));
   }
 
   return (
@@ -61,7 +61,7 @@ export default function Board() {
       {cards.map((card) => (
         <MemoryCard
           key={card.id}
-          name={card.id}
+          name={card.name}
           url={card.url}
           onClick={handleCardClick}
         ></MemoryCard>
