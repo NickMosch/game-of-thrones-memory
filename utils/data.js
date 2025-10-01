@@ -5,7 +5,6 @@ class Character{
   }
 }
 
-
 const data = [
   new Character(0),
   new Character(2),

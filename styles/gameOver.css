@@ -1,0 +1,29 @@
+.win,
+.lose {
+  width: 50%;
+  height: 50%;
+  align-self: center;
+  border-radius: 5%;
+  gap: 15px;
+  align-items: center;
+  font-size: xx-large;
+  flex-direction: column;
+  display: flex;
+  font-family: 'Times New Roman', Times, serif;
+}  
+
+.lose {
+  background-image: url("./src/assets/imgs/lose.jpg");
+  box-shadow: 0 0 10px 5px rgb(182, 224, 229);
+  color: white;
+  justify-content: center;
+}
+
+.win {
+  background-image: url("./src/assets/imgs/win.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: white;
+  box-shadow: 0 0 10px 5px rgb(182, 224, 229);
+  justify-content: space-around;
+}

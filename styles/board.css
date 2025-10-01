@@ -1,0 +1,53 @@
+html,
+body {
+  margin: 0;
+}
+
+#root {
+  background-image: url("./src/assets/imgs/jon.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.board {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-grow: 4;
+}
+
+.remaining {
+  flex-grow: 1;
+  text-align: center;
+  font-size: xx-large;
+  color: white;
+  font-family: "medieval", "papyrus", "garamond", serif;
+}
+
+.score {
+  color: white;
+  width: 380px;
+  height: 120px;
+  margin-top: 20px;
+  margin-right: 20px;
+  background-image: url("./src/assets/imgs/score_bg.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  font-size: xx-large;
+  border-radius: 15%;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  align-self: flex-end;
+  font-family: "medieval", "papyrus", "garamond", serif;
+}
