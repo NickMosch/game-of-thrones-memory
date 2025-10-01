@@ -1,1 +1,1 @@
-Clash Royale memory game built with React
+Game of thrones themed memory game built with React
