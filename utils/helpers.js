@@ -18,15 +18,13 @@ function resetCards(cards) {
   return cardsCopy;
 }
 
+//this function picks 4 cards at random
+//with the condition that at least one of them hasn't been clicked yet
 function selectShowing(cardsArg) {
-    //this function picks 4 cards at random
-    console.log("select showing runs"); //with the condition that at least one of them hasn't been clicked yet
     const copy = [...cardsArg];
     const notClick = copy.find((item) => !item.clicked);
     const rest = copy.filter((item) => item.id !== notClick.id).slice(0, 3);
-    rest.forEach((card) => console.log(card));
     let shuffled = shuffleCards([...rest, notClick]);
-    console.log(shuffled);
     return shuffled; //shuffle so the unclicked card won't always be the last one
   }
 

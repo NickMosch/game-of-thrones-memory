@@ -15,7 +15,6 @@ function App() {
   const score = cards.filter((card) => card.clicked).length;
 
   useEffect(() => {
-    console.log("component mounts");
     setCards((prevCards) => shuffleCards(prevCards)); //shuffle cards when the component mounts
   }, []);
 

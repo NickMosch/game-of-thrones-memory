@@ -4,7 +4,7 @@ body {
 }
 
 #root {
-  background-image: url("./src/assets/imgs/jon.jpg");
+  background-image: url("/imgs/jon.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
@@ -40,7 +40,7 @@ body {
   height: 120px;
   margin-top: 20px;
   margin-right: 20px;
-  background-image: url("./src/assets/imgs/score_bg.png");
+  background-image: url("/imgs/score_bg.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
   font-size: xx-large;

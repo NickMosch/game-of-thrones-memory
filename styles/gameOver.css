@@ -13,14 +13,14 @@
 }  
 
 .lose {
-  background-image: url("./src/assets/imgs/lose.jpg");
+  background-image: url("/imgs/lose.jpg");
   box-shadow: 0 0 10px 5px rgb(182, 224, 229);
   color: white;
   justify-content: center;
 }
 
 .win {
-  background-image: url("./src/assets/imgs/win.jpg");
+  background-image: url("/imgs/win.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   color: white;

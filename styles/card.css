@@ -14,7 +14,7 @@ img {
   height: 230px;
   border-radius: 20%;
   padding: 1%;
-  background-image: url("./src/assets/imgs/blue_bg.jpg");
+  background-image: url("/imgs/blue_bg.jpg");
   font-size: x-large;
   font-family: "medieval","papyrus","garamond",serif;
 }
@@ -43,5 +43,5 @@ span {
 
 @font-face {
   font-family: "medieval";
-  src: url("./src/assets/fonts/Deutsch-Gothic.woff");
+  src: url("/fonts/Deutsch-Gothic.woff");
 }
